@@ -1,6 +1,6 @@
 package com.abhi.Assignment1.main;
 
-import com.abhi.Assignment1.dto.AccountDto;
+import com.abhi.Assignment1.service.AccountExcelFile;
 import com.abhi.Assignment1.service.AccountFileService;
 import com.abhi.Assignment1.service.CustomerNameGeneratorService;
 import jakarta.annotation.PostConstruct;
@@ -21,6 +21,8 @@ public class GenerateAccountFileMain {
     private AccountFileService accountFileService;
     @Autowired
     private CustomerNameGeneratorService customerNameGeneratorService;
+    @Autowired
+    private AccountExcelFile accountExcelFile;
     private static final DecimalFormat df = new DecimalFormat("0.00");
     public static List<String> acclist;
 
@@ -50,7 +52,13 @@ public class GenerateAccountFileMain {
 
             l.add(acclist);
             writlefile(l);
+            writeexcel(l,i);
         }
+    }
+
+    private void writeexcel(List<List<String>> l, int i) throws IOException {
+        List<List<String>> k=l;
+        accountExcelFile.writeExcel(k,i);
     }
 
     private void writlefile(List<List<String>> acclist) throws IOException {
