@@ -30,7 +30,7 @@ public class GenerateAccountFileMain {
 
         List<List<String>> l = new ArrayList<>();
         accountFileService.generateFile();
-        for (int i = 1; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             List<String> acclist = new ArrayList<>();
             // name
             String generateName = customerNameGeneratorService.generateName();

@@ -23,8 +23,10 @@ public class AccountFileService {
     }
     public void writeAccount(List<List<String>>acc) throws IOException {
         try(BufferedWriter bufferedWriter=Files.newBufferedWriter(Paths.get(Filename))){
-                bufferedWriter.write(acc.toString());
+            for(List<String> i:acc) {
+                bufferedWriter.write(i.toString());
                 bufferedWriter.write(System.lineSeparator());
+            }
         }catch (IOException e){
             e.printStackTrace();
             System.err.println("file write failed");
