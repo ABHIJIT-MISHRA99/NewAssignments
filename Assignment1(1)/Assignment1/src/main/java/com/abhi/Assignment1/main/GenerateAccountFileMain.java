@@ -21,14 +21,17 @@ public class GenerateAccountFileMain {
     private AccountFileService accountFileService;
     @Autowired
     private CustomerNameGeneratorService customerNameGeneratorService;
-    private static final DecimalFormat df=new DecimalFormat("0.00");
-
+    private static final DecimalFormat df = new DecimalFormat("0.00");
+    public static List<String> acclist;
 
 
     @PostConstruct
     public void createAccountFile() throws IOException {
+
+        List<List<String>> l = new ArrayList<>();
         accountFileService.generateFile();
-        for (int i = 1; i < 100; i++) {
+        for (int i = 1; i < 5; i++) {
+            List<String> acclist = new ArrayList<>();
             // name
             String generateName = customerNameGeneratorService.generateName();
             // account id
@@ -39,23 +42,21 @@ public class GenerateAccountFileMain {
             float balance = Float.parseFloat(df.format(input));
             // create date
             LocalDate n = LocalDate.now();
-            List<String>acclist = new ArrayList<>();
             acclist.add(generateName);
             acclist.add(accountId);
             acclist.add(String.valueOf(balance));
             acclist.add(String.valueOf(n));
-            writlefile(acclist);
+
+
+            l.add(acclist);
+            writlefile(l);
         }
     }
 
-    private void writlefile(List<String> acclist) throws IOException {
-        List<String> k=acclist;
-        List<String>a=new ArrayList<>();
-        for(String s:k)
-        {
-            a.add(s);
-        }
-        accountFileService.writeAccount(a);
+    private void writlefile(List<List<String>> acclist) throws IOException {
+        List<List<String>> k = acclist;
+
+        accountFileService.writeAccount(k);
 
     }
 }

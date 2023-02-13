@@ -14,17 +14,18 @@ import java.util.List;
 @Service
 public class AccountFileService {
 
-    public static String Filename="cusAccoun.txt";
+    public static String Filename="cusAccout.txt";
 
 //     public  static String Filename = "/home/abhi/Desktop/cusAccount.txt";
     public void generateFile() throws IOException {
         Path file = Files.createFile(Paths.get(Filename));
         System.out.println("file:"+file);
     }
-    public void writeAccount(List<String>acc) throws IOException {
+    public void writeAccount(List<List<String>>acc) throws IOException {
         try(BufferedWriter bufferedWriter=Files.newBufferedWriter(Paths.get(Filename))){
-            bufferedWriter.write(acc.toString());
-        }catch (Exception e){
+                bufferedWriter.write(acc.toString());
+                bufferedWriter.write(System.lineSeparator());
+        }catch (IOException e){
             e.printStackTrace();
             System.err.println("file write failed");
 
